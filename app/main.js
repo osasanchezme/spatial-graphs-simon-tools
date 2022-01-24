@@ -1,6 +1,9 @@
-var Plotly = require('plotly.js-dist');
+const Plotly = require('plotly.js-dist');
+const state = require('./state')
 
-let TESTER = document.getElementById("tester");
+state.setState();
+
+let TESTER = document.getElementById("graph_container");
 
 var intensity = [0, 0.14285714285714285, 0.2857142857142857, 0.42857142857142855, 0.5714285714285714, 0.7142857142857143, 0.8571428571428571, 1];
 
@@ -20,5 +23,7 @@ var data = [{
     ]
   }
 ];
+
+// TODO - Implement resize
 
 Plotly.newPlot(TESTER, data, {});
