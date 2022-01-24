@@ -1,88 +1,94 @@
 body {
-  margin: 0;
-  font-family: "Roboto", sans-serif;
-  min-width: 1200px;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    min-width: 1200px;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 .gen-header {
-  color: #04394f;
-  background-image: url(./img/bg-blue.webp);
-  height: 50px;
-  position: relative;
+    color: #04394f;
+    background-image: url(./img/bg-blue.webp);
+    height: 50px;
+    position: relative;
 }
 
 .gen-header h1 {
-  position: absolute;
-  font-size: 2em;
-  bottom: 0;
-  text-shadow: 0 0 0.07em white, 0 0 0.12em rgb(0 0 0 / 50%);
-  margin-bottom: 6px;
-  margin-left: 10px;
+    position: absolute;
+    font-size: 2em;
+    bottom: 0;
+    text-shadow: 0 0 0.07em white, 0 0 0.12em rgb(0 0 0 / 50%);
+    margin-bottom: 6px;
+    margin-left: 10px;
 }
 
 .gen-body {
-  background-image: url(./img/bg-white.webp);
-  position: relative;
-  height: calc(100vh - 80px);
+    background-image: url(./img/bg-white.webp);
+    position: relative;
+    height: calc(100vh - 80px);
 }
 
 .gen-footer {
-  background-image: url(./img/bg-blue.webp);
-  height: 30px;
-  font-weight: bold;
-  color: #04394f;
-  padding-right: 10px;
-  padding-left: 10px;
+    background-image: url(./img/bg-blue.webp);
+    height: 30px;
+    font-weight: bold;
+    color: #04394f;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 .gen-footer div {
-  margin-top: 5px;
+    margin-top: 5px;
 }
 
 .tool-container {
-  display: -webkit-flex;
-  display: flex;
-  height: 100%;
+    display: -webkit-flex;
+    display: flex;
+    height: 100%;
 }
 
 .controls-container {
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  padding: 20px;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 20px;
 }
 
 .graph-container {
-  width: 80%;
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  background-color: #f1f1f1;
+    width: 80%;
+    -webkit-flex: 3;
+    -ms-flex: 3;
+    flex: 3;
+    background-color: #f1f1f1;
 }
 
 .controls {
-  height: 100%;
-  margin: auto;
-  border: solid 3px #04394f;
-  max-width: 700px;
-  padding: 20px;
-  border-radius: 15px;
-}
-
-.controls input {
-  border: none;
-  border-radius: 5px;
-  height: 30px;
-  width: 100px;
-  padding: 7px;
-  background-color: white;
+    height: 100%;
+    margin: auto;
+    border: solid 3px #04394f;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .controls input:focus-visible {
-  outline: none;
-  background-color: whitesmoke;
+    outline: none;
+    background-color: whitesmoke;
+}
+
+.input-row input, .input-row select {
+    margin-top: 5px;
+    width: 100%;
+    border: solid 1px #04394f;
+    border-radius: 5px;
+    height: 30px;
+    padding: 0px 7px;
+    font-size: 0.9em;
+    background-color: white;
+}
+
+.input-row {
+  margin-bottom: 10px;
 }

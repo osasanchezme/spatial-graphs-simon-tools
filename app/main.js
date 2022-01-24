@@ -1,7 +1,10 @@
 const Plotly = require('plotly.js-dist');
 const state = require('./state')
 
-state.setState();
+window['MDC'] = {state: state.initial_state};
+state.setState(state.initial_state);
+
+state.initializeApp();
 
 let TESTER = document.getElementById("graph_container");
 
