@@ -1,5 +1,7 @@
 const $ = require('jquery');
 const config = require('../config.json');
+const graph = require('./graph');
+const getState = require('./getState')
 
 const initial_state = {
     problem: 'boussinesq',
@@ -28,7 +30,6 @@ function initializeApp() {
         );
         console.log(problem_name);
     });
-
 }
 
 function setState(model) {
@@ -44,11 +45,7 @@ function updateUI() {
     $('#xdist').val(Number(model.view.x));
     $('#ydist').val(Number(model.view.y));
     $('#problem_name').val(String(model.problem));
-    
-}
-
-function getState() {
-    return JSON.parse(JSON.stringify(window[config.app_name].state));
+    graph.updatePlot()
 }
 
 module.exports = {

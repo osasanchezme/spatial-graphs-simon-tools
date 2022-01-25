@@ -1,20 +1,21 @@
 const $ = require('jquery');
 const state = require('./state');
+const getState = require('./getState')
 
 function xlimChanged(value){
-    let model = state.getState();
+    let model = getState();
     model.view.x = Number(value);
     state.setState(model);
 }
 
 function ylimChanged(value){
-    let model = state.getState();
+    let model = getState();
     model.view.y = Number(value);
     state.setState(model);
 }
 
 function problemNameChanged(value){
-    let model = state.getState();
+    let model = getState();
     model.problem = String(value).toLowerCase();
     console.log(model.problem);
     state.setState(model);
