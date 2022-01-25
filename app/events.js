@@ -1,6 +1,7 @@
 const $ = require('jquery');
 const state = require('./state');
 const getState = require('./getState')
+const graph = require('./graph');
 
 function xlimChanged(value){
     let model = getState();
