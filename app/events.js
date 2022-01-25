@@ -15,6 +15,18 @@ function ylimChanged(value){
     state.setState(model);
 }
 
+function zlimChanged(value){
+    let model = getState();
+    model.view.z.max = Number(value);
+    state.setState(model);
+}
+
+function spaceChanged(value){
+    let model = getState();
+    model.view.space = Number(value);
+    state.setState(model);
+}
+
 function problemNameChanged(value){
     let model = getState();
     model.problem = String(value).toLowerCase();
@@ -31,6 +43,12 @@ function assignActions() {
     });
     $('#problem_name').on('change', (e) => {
         problemNameChanged(e.target.value);
+    });
+    $('#zdist').on('change', (e) => {
+        zlimChanged(e.target.value);
+    });
+    $('#space').on('change', (e) => {
+        spaceChanged(e.target.value);
     });
 }
 

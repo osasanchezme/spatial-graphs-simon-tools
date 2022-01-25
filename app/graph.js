@@ -6,28 +6,32 @@ function updatePlot() {
     let graph_cont = document.getElementById('graph_container');
 
     // TODO - Implement resize
+    // TODO - Save the current view
+    // TODO - Reset axis limits on change
     const model = getState();
 
     Plotly.newPlot(graph_cont, model.data, {});
 }
 
 function createPlotData(model) {
-    let d = 10;
+    let d = model.view.space;
     let dx = model.view.x;
     let dy = model.view.y;
     let dz = model.view.z.max;
     let c = 'rgb(211,211,211)';
     let f = 'rgb(220,220,220)';
+    let h = 'rgb(165,42,42)';
+    
     const data = [
         {
             type: 'mesh3d',
             x: [dx, dx, -d, -d, d, d, dx, dx, -d, -d, d, d],
             y: [dy, d, d, -d, -d, dy, dy, d, d, -d, -d, dy],
             z: [0, 0, 0, 0, 0, 0, dz, dz, dz, dz, dz, dz],
-            i: [1, 1, 2, 2, 3, 3, 4, 4, 0, 0, 0, 0, 6, 6, 6, 6],
-            j: [8, 8, 3, 8, 4, 9, 5, 10, 1, 3, 5, 3, 7, 9, 11, 9],
-            k: [2, 7, 9, 9, 10, 10, 11, 11, 2, 2, 4, 4, 8, 8, 10, 10],
-            facecolor: [c, c, c, c, c, c, c, c, f, f, f, f, f, f, f, f],
+            i: [1, 1, 2, 2, 3, 3, 4, 4, 0, 0, 0, 0, 6, 6, 6, 6, 0, 0, 0, 0],
+            j: [8, 8, 3, 8, 4, 9, 5, 10, 1, 3, 5, 3, 7, 9, 11, 9, 1, 6, 5, 6],
+            k: [2, 7, 9, 9, 10, 10, 11, 11, 2, 2, 4, 4, 8, 8, 10, 10, 7, 7, 11, 11],
+            facecolor: [c, c, c, c, c, c, c, c, f, f, f, f, f, f, f, f, h, h, h, h],
             lighting: {
                 ambient: 1,
             },
