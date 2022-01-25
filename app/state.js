@@ -1,7 +1,10 @@
 const $ = require('jquery');
+const config = require('../config.json');
 
 const initial_state = {
     problem: 'boussinesq',
+    // problem: 'kelvin',
+    // problem: 'cerruti',
     view: {
         x: 0,
         y: 0,
@@ -25,17 +28,32 @@ function initializeApp() {
         );
         console.log(problem_name);
     });
+
 }
 
-function assignActions() {}
+function setState(model) {
+    const curr_model = getState();
+    if (curr_model !== model) {
+        window[config.app_name].state = model;
+        updateUI();
+    }
+}
 
-function setState(state) {
-    $('#xdist').val(Number(state.view.x));
-    $('#ydist').val(Number(state.view.y));
+function updateUI() {
+    const model = getState();
+    $('#xdist').val(Number(model.view.x));
+    $('#ydist').val(Number(model.view.y));
+    $('#problem_name').val(String(model.problem));
+    
+}
+
+function getState() {
+    return JSON.parse(JSON.stringify(window[config.app_name].state));
 }
 
 module.exports = {
     initial_state,
     setState,
     initializeApp,
+    getState,
 };

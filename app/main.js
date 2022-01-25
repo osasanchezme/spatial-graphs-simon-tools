@@ -1,10 +1,17 @@
 const Plotly = require('plotly.js-dist');
 const state = require('./state')
+const config = require('../config.json')
+const events = require('./events')
 
-window['MDC'] = {state: state.initial_state};
+// Initialisza App
+state.initializeApp();
+
+// Get and set the initial state
+window[config.app_name] = {state: state.initial_state};
 state.setState(state.initial_state);
 
-state.initializeApp();
+// Assign actions to the UI elements
+events.assignActions();
 
 let TESTER = document.getElementById("graph_container");
 
