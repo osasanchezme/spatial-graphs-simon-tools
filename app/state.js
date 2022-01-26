@@ -12,9 +12,9 @@ const initial_state = {
         y: 0,
         z: {
             min: 0,
-            max: -100,
+            max: -1,
         },
-        space: 10,
+        space: 1,
     },
 };
 initial_state.data = graph.createPlotData(initial_state);

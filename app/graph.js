@@ -48,21 +48,12 @@ function createPlotData(model) {
             //     [1, 'rgb(0, 0, 255)'],
             // ],
         },
-        createPlatesInPlane(model, 'y'),
-        createPlatesInPlane(model, 'x')
+        createPlatesInPlane(model),
     ];
     return data;
 }
 
 function createPlatesInPlane(model, plane) {
-    let x_i = (plane === "y") ? model.view.x : model.view.y;
-    let x_f = model.view.space;
-    let y_all = (plane === "y") ? model.view.y : model.view.x;
-    let z_i = model.view.z.min;
-    let z_f = model.view.z.max;
-    let number_x = 100;
-    let number_z = 100;
-
     // Point coordinates
     let x = [];
     let y = [];
@@ -71,63 +62,69 @@ function createPlatesInPlane(model, plane) {
     let i = [];
     let j = [];
     let k = [];
-    // Face colors
-    let facecolor = [];
+    // Intensity
+    let intensity = [];
 
-    let x_step = (x_f - x_i) / number_x;
-    let z_step = (z_f - z_i) / number_z;
+    let z_i = model.view.z.min;
+    let z_f = model.view.z.max;
+    let number_x = 100;
+    let number_z = 100;
+    let x_f = model.view.space;
+    ['x', 'y'].forEach((plane) => {
+        let initial_num_nodes = (plane === 'x') ? 0 : (number_x + 1) * (number_z + 1);
+        let x_i = plane === 'y' ? model.view.x : model.view.y;
+        let y_all = plane === 'y' ? model.view.y : model.view.x;
+        let x_step = (x_f - x_i) / number_x;
+        let z_step = (z_f - z_i) / number_z;
 
-    let max = 255;
-    let min = 0;
-
-    for (let i_z = 0; i_z <= number_z; i_z++) {
-        for (let i_x = 0; i_x <= number_x; i_x++) {
-            x.push(x_i + i_x * x_step);
-            y.push(y_all);
-            z.push(z_i + i_z * z_step);
-            if (i_x < number_x && i_z < number_z) {
-                // First plate
-                i.push((i_z)*(number_x+1) + i_x);
-                j.push((i_z)*(number_x+1) + i_x + 1);
-                k.push((i_z + 1)*(number_x+1) + i_x + 1);
-                // Second plate
-                i.push((i_z)*(number_x+1) + i_x);
-                j.push((i_z + 1)*(number_x+1) + i_x);
-                k.push((i_z + 1)*(number_x+1) + i_x + 1);
-                // Colors
-                facecolor.push(
-                    `rgb(${Math.floor(Math.random() * (max - min + 1)) + min},${
-                        Math.floor(Math.random() * (max - min + 1)) + min
-                    },${Math.floor(Math.random() * (max - min + 1)) + min})`
-                );
-                facecolor.push(
-                    `rgb(${Math.floor(Math.random() * (max - min + 1)) + min},${
-                        Math.floor(Math.random() * (max - min + 1)) + min
-                    },${Math.floor(Math.random() * (max - min + 1)) + min})`
-                );
+        for (let i_z = 0; i_z <= number_z; i_z++) {
+            for (let i_x = 0; i_x <= number_x; i_x++) {
+                if (plane === 'y') {
+                    x.push(x_i + i_x * x_step);
+                    y.push(y_all);
+                    z.push(z_i + i_z * z_step);
+                } else {
+                    x.push(y_all);
+                    y.push(x_i + i_x * x_step);
+                    z.push(z_i + i_z * z_step);
+                }
+                // Intensity calculation
+                let Rr_f = Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2);
+                let z_f = -z[z.length - 1];
+                let ints = (3 * z_f ** 3) / Rr_f ** 5;
+                if (ints < 10) {
+                    intensity.push(ints);
+                } else {
+                    intensity.push(10);
+                }
+                if (i_x < number_x && i_z < number_z) {
+                    // First plate
+                    i.push(initial_num_nodes + i_z * (number_x + 1) + i_x);
+                    j.push(initial_num_nodes + i_z * (number_x + 1) + i_x + 1);
+                    k.push(initial_num_nodes + (i_z + 1) * (number_x + 1) + i_x + 1);
+                    // Second plate
+                    i.push(initial_num_nodes + i_z * (number_x + 1) + i_x);
+                    j.push(initial_num_nodes + (i_z + 1) * (number_x + 1) + i_x);
+                    k.push(initial_num_nodes + (i_z + 1) * (number_x + 1) + i_x + 1);
+                }
             }
         }
-    }
-    
+    });
     const data = {
         type: 'mesh3d',
-        x: (plane === "y") ? x : y,
-        y: (plane === "y") ? y : x,
+        x: x,
+        y: y,
         z: z,
         i: i,
         j: j,
         k: k,
-        facecolor: facecolor,
+        // facecolor: facecolor,
         lighting: {
             ambient: 1,
         },
         opacity: 1,
-        // intensity: intensity,
-        // colorscale: [
-        //     [0, 'rgb(0, 0, 255)'],
-        //     [0.5, 'rgb(0, 0, 255)'],
-        //     [1, 'rgb(0, 0, 255)'],
-        // ],
+        intensity: intensity,
+        colorscale: 'Jet',
     };
     console.log(data);
     return data;
