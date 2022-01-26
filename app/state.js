@@ -7,6 +7,7 @@ const initial_state = {
     problem: 'boussinesq',
     // problem: 'kelvin',
     // problem: 'cerruti',
+    load: 2*Math.PI.toFixed(3),
     view: {
         x: 0,
         y: 0,
@@ -55,6 +56,7 @@ function updateUI() {
     $('#zdist').val(Number(model.view.z.max));
     $('#space').val(Number(model.view.space));
     $('#resolution').val(Number(model.settings.resolution));
+    $('#load').val(Number(model.load));
     graph.updatePlot();
 }
 

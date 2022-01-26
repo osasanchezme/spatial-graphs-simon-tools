@@ -39,6 +39,12 @@ function resolutionChanged(value){
     state.setState(model);
 }
 
+function loadChanged(value){
+    let model = getState();
+    model.load = Number(value);
+    state.setState(model);
+}
+
 function assignActions() {
     $('#xdist').on('change', (e) => {
         xlimChanged(e.target.value);
@@ -57,6 +63,9 @@ function assignActions() {
     });
     $('#resolution').on('change', (e) => {
         resolutionChanged(e.target.value);
+    });
+    $('#load').on('change', (e) => {
+        loadChanged(e.target.value);
     });
     $('#advanced_check').on('change', (e) => {
         if ($('#advanced_check')[0].checked){

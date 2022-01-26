@@ -70,6 +70,7 @@ function createPlatesInPlane(model, plane) {
     let number_x = model.settings.resolution;
     let number_z = model.settings.resolution;
     let x_f = model.view.space;
+    let load_val = model.load;
     ['x', 'y'].forEach((plane) => {
         let initial_num_nodes = (plane === 'x') ? 0 : (number_x + 1) * (number_z + 1);
         let x_i = plane === 'y' ? model.view.x : model.view.y;
@@ -91,7 +92,7 @@ function createPlatesInPlane(model, plane) {
                 // Intensity calculation
                 let Rr_f = Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2);
                 let z_f = -z[z.length - 1];
-                let ints = (3 * z_f ** 3) / Rr_f ** 5;
+                let ints = (load_val / (2*Math.PI)) * (3 * z_f ** 3) / Rr_f ** 5;
                 if (ints < 10) {
                     intensity.push(ints);
                 } else {
