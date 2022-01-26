@@ -36,6 +36,19 @@
                             <label for="space">Extensión del espacio:</label>
                             <input type="number" id="space" name="space" min="0" max="100" step="1"/>
                         </div>
+                        <div class="input-row">
+                            Avanzado
+                            <label class="switch">
+                                <input type="checkbox" id="advanced_check">
+                                <span class="slider round"></span>
+                              </label>
+                        </div>
+                        <div class="advanced-settings hidden" id="advanced_settings">
+                            <div class="input-row">
+                                <label for="resolution">Resolución:</label>
+                                <input type="number" id="resolution" name="resolution" min="5" max="500" step="5"/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="graph-container" id="graph_container"></div>

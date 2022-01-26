@@ -16,6 +16,9 @@ const initial_state = {
         },
         space: 1,
     },
+    settings: {
+        resolution: 100,
+    }
 };
 initial_state.data = graph.createPlotData(initial_state);
 
@@ -51,6 +54,7 @@ function updateUI() {
     $('#problem_name').val(String(model.problem));
     $('#zdist').val(Number(model.view.z.max));
     $('#space').val(Number(model.view.space));
+    $('#resolution').val(Number(model.settings.resolution));
     graph.updatePlot();
 }
 

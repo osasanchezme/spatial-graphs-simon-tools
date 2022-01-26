@@ -30,7 +30,12 @@ function spaceChanged(value){
 function problemNameChanged(value){
     let model = getState();
     model.problem = String(value).toLowerCase();
-    console.log(model.problem);
+    state.setState(model);
+}
+
+function resolutionChanged(value){
+    let model = getState();
+    model.settings.resolution = Number(value);
     state.setState(model);
 }
 
@@ -49,6 +54,16 @@ function assignActions() {
     });
     $('#space').on('change', (e) => {
         spaceChanged(e.target.value);
+    });
+    $('#resolution').on('change', (e) => {
+        resolutionChanged(e.target.value);
+    });
+    $('#advanced_check').on('change', (e) => {
+        if ($('#advanced_check')[0].checked){
+            $('#advanced_settings').removeClass('hidden');
+        }else{
+            $('#advanced_settings').addClass('hidden');
+        }
     });
 }
 

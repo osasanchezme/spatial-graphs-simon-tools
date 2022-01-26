@@ -67,8 +67,8 @@ function createPlatesInPlane(model, plane) {
 
     let z_i = model.view.z.min;
     let z_f = model.view.z.max;
-    let number_x = 100;
-    let number_z = 100;
+    let number_x = model.settings.resolution;
+    let number_z = model.settings.resolution;
     let x_f = model.view.space;
     ['x', 'y'].forEach((plane) => {
         let initial_num_nodes = (plane === 'x') ? 0 : (number_x + 1) * (number_z + 1);
