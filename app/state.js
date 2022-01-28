@@ -2,18 +2,23 @@ const $ = require('jquery');
 const config = require('../config.json');
 const graph = require('./graph');
 const getState = require('./getState');
+const helpers = require('./helpers')
 
 function initializeApp() {
     const available_problems = {
         Boussinesq: {
             sz: {
                 formula: '(3 * d.z ** 3) / d.R ** 5',
-                symbol: '\\sigma_z',
+                symbol: 'σ<sub>z</sub>',
+            },
+            sx: {
+                formula: '(3 * d.z ** 2) / d.R ** 5',
+                symbol: 'σ<sub>x</sub>',
             },
         },
         Kelvin: {},
         Cerruti: {
-            sz: { formula: '(3 * d.z ** 4) / d.R ** 5', symbol: '\\sigma_z' },
+            sz: { formula: '(3 * d.z ** 4) / d.R ** 5', symbol: 'σ<sub>z</sub>' },
             // Basic structure ready, missing select result to plot
         },
     };
@@ -31,6 +36,7 @@ function createInitialState() {
         problem: 'boussinesq',
         // problem: 'kelvin',
         // problem: 'cerruti',
+        result: 'sz',
         load: 2 * Math.PI.toFixed(3),
         view: {
             x: 0,
@@ -61,13 +67,21 @@ function setState(model) {
 
 function updateUI() {
     const model = getState();
+    const available_problems = window.problems;
+    const problem_name = String(model.problem)
     $('#xdist').val(Number(model.view.x));
     $('#ydist').val(Number(model.view.y));
-    $('#problem_name').val(String(model.problem));
+    $('#problem_name').val(problem_name);
     $('#zdist').val(Number(model.view.z.max));
     $('#space').val(Number(model.view.space));
     $('#resolution').val(Number(model.settings.resolution));
     $('#load').val(Number(model.load));
+    const available_results = available_problems[helpers.toTitleCase(problem_name)];
+    $('#result').empty()
+    Object.keys(available_results).forEach((available_result) => {
+        $('#result').append(`<option value="${String(available_result)}">${available_results[available_result].symbol}</option>`);
+    });
+    $('#result').val(String(model.result));
     graph.updatePlot();
 }
 

@@ -45,6 +45,12 @@ function loadChanged(value){
     state.setState(model);
 }
 
+function resultChanged(value){
+    let model = getState();
+    model.result = String(value).toLowerCase();
+    state.setState(model);
+}
+
 function assignActions() {
     $('#xdist').on('change', (e) => {
         xlimChanged(e.target.value);
@@ -73,6 +79,9 @@ function assignActions() {
         }else{
             $('#advanced_settings').addClass('hidden');
         }
+    });
+    $('#result').on('change', (e) => {
+        resultChanged(e.target.value);
     });
 }
 

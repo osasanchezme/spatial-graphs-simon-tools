@@ -1,6 +1,7 @@
 const Plotly = require('plotly.js-dist');
 const getState = require('./getState');
 const state = require('./state');
+const helpers = require('./helpers')
 
 function updatePlot() {
     let graph_cont = document.getElementById('graph_container');
@@ -97,8 +98,8 @@ function createPlatesInPlane(model) {
                     R: Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2),
                     z: -z[z.length - 1],
                 };
-                let prob = window.problems[toTitleCase(String(model.problem))];
-                let ints = (load_val / (2 * Math.PI)) * eval(prob['sz'].formula);
+                let prob = window.problems[helpers.toTitleCase(String(model.problem))];
+                let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
                 if (ints < 10) {
                     intensity.push(ints);
                 } else {
@@ -137,10 +138,6 @@ function createPlatesInPlane(model) {
     return data;
 }
 
-function toTitleCase(str) {
-    return str.replace(/\w\S*/g, function (txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    });
-}
+
 
 module.exports = { updatePlot, createPlotData };
