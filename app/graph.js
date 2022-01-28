@@ -9,6 +9,9 @@ function updatePlot() {
     // TODO - Save the current view
     // TODO - Reset axis limits on change
     // TODO - Add a representation of the load object: cilinder, etc...
+    // TODO - Add checkbox to keep x-corte and y-corte equal
+    // TODO - Show intensity value on mesh hover
+    // TODO - Adjust max stress ploted
     const model = getState();
 
     Plotly.newPlot(graph_cont, model.data, {});
@@ -53,7 +56,7 @@ function createPlotData(model) {
     return data;
 }
 
-function createPlatesInPlane(model, plane) {
+function createPlatesInPlane(model) {
     // Point coordinates
     let x = [];
     let y = [];
@@ -72,7 +75,7 @@ function createPlatesInPlane(model, plane) {
     let x_f = model.view.space;
     let load_val = model.load;
     ['x', 'y'].forEach((plane) => {
-        let initial_num_nodes = (plane === 'x') ? 0 : (number_x + 1) * (number_z + 1);
+        let initial_num_nodes = plane === 'x' ? 0 : (number_x + 1) * (number_z + 1);
         let x_i = plane === 'y' ? model.view.x : model.view.y;
         let y_all = plane === 'y' ? model.view.y : model.view.x;
         let x_step = (x_f - x_i) / number_x;
@@ -90,9 +93,12 @@ function createPlatesInPlane(model, plane) {
                     z.push(z_i + i_z * z_step);
                 }
                 // Intensity calculation
-                let Rr_f = Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2);
-                let z_f = -z[z.length - 1];
-                let ints = (load_val / (2*Math.PI)) * (3 * z_f ** 3) / Rr_f ** 5;
+                let d = {
+                    R: Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2),
+                    z: -z[z.length - 1],
+                };
+                let prob = window.problems[toTitleCase(String(model.problem))];
+                let ints = (load_val / (2 * Math.PI)) * eval(prob['sz'].formula);
                 if (ints < 10) {
                     intensity.push(ints);
                 } else {
@@ -129,6 +135,12 @@ function createPlatesInPlane(model, plane) {
     };
     console.log(data);
     return data;
+}
+
+function toTitleCase(str) {
+    return str.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
 }
 
 module.exports = { updatePlot, createPlotData };

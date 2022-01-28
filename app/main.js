@@ -6,8 +6,8 @@ const events = require('./events');
 state.initializeApp();
 
 // Get and set the initial state
-window[config.app_name] = { state: state.initial_state };
-state.setState(state.initial_state);
+window[config.app_name] = { state: state.createInitialState() };
+state.setState(state.createInitialState());
 
 // Assign actions to the UI elements
 events.assignActions();
