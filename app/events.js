@@ -2,6 +2,7 @@ const $ = require('jquery');
 const state = require('./state');
 const getState = require('./getState')
 const graph = require('./graph');
+const helpers = require('./helpers')
 
 function xlimChanged(value){
     let model = getState();
@@ -30,6 +31,8 @@ function spaceChanged(value){
 function problemNameChanged(value){
     let model = getState();
     model.problem = String(value).toLowerCase();
+    const available_results = window.problems[helpers.toTitleCase(String(value))];
+    model.result = Object.keys(available_results)[0];
     state.setState(model);
 }
 
