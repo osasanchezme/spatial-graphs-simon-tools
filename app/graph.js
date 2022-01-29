@@ -12,7 +12,7 @@ function updatePlot() {
     // TODO - Add a representation of the load object: cilinder, etc...
     // TODO - Add checkbox to keep x-corte and y-corte equal
     // TODO - Show intensity value on mesh hover - IMPORTANT!!!
-    // TODO - Adjust max stress ploted (manually or automatically) -- Set the min too to find location of a minimum stress (add inputs)
+    // TODO - (DONE) Adjust max stress ploted (manually or automatically) -- Set the min too to find location of a minimum stress (add inputs)
     // TODO - Add inputs to adjust v and E
     // TODO - ONLY MISSING ADDING THE CORERCT FORMULAS FOR EACH RESULT IN EACH PROBLEM
     // TODO - Add units
@@ -20,6 +20,7 @@ function updatePlot() {
     // TODO - Document all the functions to promote collaboration
     // TODO - Try to plot the same result with a different problem if does not exist go to the deafult one and notify
     // TODO - Add 3D scatter plot
+    // TODO - Add loader
     const model = getState();
 
     Plotly.newPlot(graph_cont, model.data, {});
@@ -107,16 +108,22 @@ function createPlatesInPlane(model) {
                     x: x[x.length - 1],
                     y: y[y.length - 1],
                 };
-                let prob = window.problems[helpers.toTitleCase(String(model.problem))];
+                let prob = model.problems[helpers.toTitleCase(String(model.problem))];
                 eval(prob[model.result].custom);
-                let int_limit = prob[model.result].limit;
+                let int_limit_max = prob[model.result].max;
+                let int_limit_min = prob[model.result].min;
                 let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
-                if (Math.abs(ints) < Math.abs(int_limit)) {
-                    intensity.push(ints);
-                } else {
-                    // intensity.push(0);
-                    intensity.push(Math.abs(int_limit) * ints/Math.abs(ints));
+                if (int_limit_max) {
+                    if (ints > int_limit_max) {
+                        ints = int_limit_max;
+                    }
                 }
+                if (int_limit_min) {
+                    if (ints < int_limit_min) {
+                        ints = int_limit_min;
+                    }
+                }
+                intensity.push(ints);
                 if (i_x < number_x && i_z < number_z) {
                     // First plate
                     i.push(initial_num_nodes + i_z * (number_x + 1) + i_x);

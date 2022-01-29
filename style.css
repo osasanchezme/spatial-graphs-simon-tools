@@ -107,6 +107,7 @@ body {
 
 .advanced-settings.hidden {
     visibility: collapse;
+    height: 0;
 }
 
 .controls input:focus-visible {

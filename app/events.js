@@ -54,6 +54,23 @@ function resultChanged(value){
     state.setState(model);
 }
 
+function minValChanged(value){
+    let model = getState();
+    let problem = helpers.toTitleCase(model.problem);
+    let result = model.result;
+    console.log("Min val:", value==="");
+    model.problems[problem][result].min = value !== "" ? Number(value) : null;
+    state.setState(model);
+}
+
+function maxValChanged(value){
+    let model = getState();
+    let problem = helpers.toTitleCase(model.problem);
+    let result = model.result;
+    model.problems[problem][result].max = value !== "" ? Number(value) : null;
+    state.setState(model);
+}
+
 function assignActions() {
     $('#xdist').on('change', (e) => {
         xlimChanged(e.target.value);
@@ -83,8 +100,23 @@ function assignActions() {
             $('#advanced_settings').addClass('hidden');
         }
     });
+    $('#advanced_check_view').on('change', (e) => {
+        if ($('#advanced_check_view')[0].checked){
+            $('#advanced_view').removeClass('hidden');
+        }else{
+            $('#advanced_view').addClass('hidden');
+        }
+    });
     $('#result').on('change', (e) => {
         resultChanged(e.target.value);
+    });
+    $('#min_val').on('change', (e) => {
+        minValChanged(e.target.value);
+        console.log('Changed min');
+    });
+    $('#max_val').on('change', (e) => {
+        maxValChanged(e.target.value);
+        console.log('Changed max');
     });
 }
 
