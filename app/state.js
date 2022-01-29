@@ -9,19 +9,19 @@ function initializeApp() {
         Boussinesq: {
             sz: {
                 formula: '(3 * d.z ** 3) / d.R ** 5',
-                symbol: '&sigma;<sub>z</sub>',
+                symbol: '&sigma;<sub>zz</sub>',
                 limit: 10,
             },
             sr: {
                 formula: '-(1 / d.R**2)*((-3*d.z*d.r**2 / d.R**3) - ((1-2*d.v)*d.R/(d.R + d.z)))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>r</sub>',
+                symbol: '&sigma;<sub>rr</sub>',
                 limit: 10,
             },
             st: {
                 formula: '-((1-2*d.v)/(d.R**2)) * (d.z/d.R - d.R/(d.R + d.z))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>θ</sub>',
+                symbol: '&sigma;<sub>θθ</sub>',
                 limit: 10,
             },
             trz: {
@@ -46,19 +46,19 @@ function initializeApp() {
             sz: {
                 formula: '1/(4*(1-d.v)) * (3*d.z**3 / d.R**5 + (d.z*(1-2*d.v))/d.R**3)',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>z</sub>',
+                symbol: '&sigma;<sub>zz</sub>',
                 limit: 10,
             },
             sr: {
                 formula: 'd.z/(4*(1-d.v)*d.R**3) * (3*d.r**2 / d.R**5 - (1-2*d.v))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>r</sub>',
+                symbol: '&sigma;<sub>rr</sub>',
                 limit: 10,
             },
             st: {
                 formula: '((1-2*d.v)/(4*(1-d.v))) * (d.z/d.R**3)',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>θ</sub>',
+                symbol: '&sigma;<sub>θθ</sub>',
                 limit: 10,
             },
             trz: {
@@ -84,19 +84,19 @@ function initializeApp() {
             sz: {
                 formula: '3*d.x*d.z**2 / d.R**5',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>z</sub>',
+                symbol: '&sigma;<sub>zz</sub>',
                 limit: 10,
             },
             sx: {
                 formula: '-d.x/d.R**3 * (-3*d.x**2 / d.R**2 + (1-2*d.v)/((d.R + d.z)**2) *(d.R**2 - d.y**2 - 2*d.R*d.y**2 / (d.R + d.z)))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>x</sub>',
+                symbol: '&sigma;<sub>xx</sub>',
                 limit: 10,
             },
             sy: {
                 formula: '-d.x/d.R**3 * (-3*d.y**2 / d.R**2 + (1-2*d.v)/((d.R + d.z)**2) *(3*d.R**2 - d.x**2 - 2*d.R*d.x**2 / (d.R + d.z)))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>y</sub>',
+                symbol: '&sigma;<sub>yy</sub>',
                 limit: 10,
             },
             txy: {
@@ -138,19 +138,19 @@ function initializeApp() {
             sz: {
                 formula: 'd.z/(d.R**2*(1-d.v)) * ((3-2*d.v)/2 - d.x**2/d.R**2)',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>z</sub>',
+                symbol: '&sigma;<sub>zz</sub>',
                 limit: 10,
             },
             sx: {
                 formula: 'd.z/(d.R**2*(1-d.v)) * (-(1-2*d.v)/2 + d.x**2/d.R**2)',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>x</sub>',
+                symbol: '&sigma;<sub>xx</sub>',
                 limit: 10,
             },
             sy: {
                 formula: 'd.v*d.z/(d.R**2*(1-d.v))',
                 custom: 'd.v = 0.2',
-                symbol: '&sigma;<sub>y</sub>',
+                symbol: '&sigma;<sub>yy</sub>',
                 limit: 10,
             },
             txz: {
