@@ -1,7 +1,7 @@
 const Plotly = require('plotly.js-dist');
 const getState = require('./getState');
 const state = require('./state');
-const helpers = require('./helpers')
+const helpers = require('./helpers');
 
 function updatePlot() {
     let graph_cont = document.getElementById('graph_container');
@@ -11,8 +11,15 @@ function updatePlot() {
     // TODO - Reset axis limits on change
     // TODO - Add a representation of the load object: cilinder, etc...
     // TODO - Add checkbox to keep x-corte and y-corte equal
-    // TODO - Show intensity value on mesh hover
-    // TODO - Adjust max stress ploted
+    // TODO - Show intensity value on mesh hover - IMPORTANT!!!
+    // TODO - Adjust max stress ploted (manually or automatically) -- Set the min too to find location of a minimum stress (add inputs)
+    // TODO - Add inputs to adjust v and E
+    // TODO - ONLY MISSING ADDING THE CORERCT FORMULAS FOR EACH RESULT IN EACH PROBLEM
+    // TODO - Add units
+    // TODO - Deformed shapes for deformation
+    // TODO - Document all the functions to promote collaboration
+    // TODO - Try to plot the same result with a different problem if does not exist go to the deafult one and notify
+    // TODO - Add 3D scatter plot
     const model = getState();
 
     Plotly.newPlot(graph_cont, model.data, {});
@@ -81,7 +88,6 @@ function createPlatesInPlane(model) {
         let y_all = plane === 'y' ? model.view.y : model.view.x;
         let x_step = (x_f - x_i) / number_x;
         let z_step = (z_f - z_i) / number_z;
-
         for (let i_z = 0; i_z <= number_z; i_z++) {
             for (let i_x = 0; i_x <= number_x; i_x++) {
                 if (plane === 'y') {
@@ -97,13 +103,19 @@ function createPlatesInPlane(model) {
                 let d = {
                     R: Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2 + z[z.length - 1] ** 2),
                     z: -z[z.length - 1],
+                    r: Math.sqrt(x[x.length - 1] ** 2 + y[y.length - 1] ** 2),
+                    x: x[x.length - 1],
+                    y: y[y.length - 1],
                 };
                 let prob = window.problems[helpers.toTitleCase(String(model.problem))];
+                eval(prob[model.result].custom);
+                let int_limit = prob[model.result].limit;
                 let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
-                if (ints < 10) {
+                if (Math.abs(ints) < Math.abs(int_limit)) {
                     intensity.push(ints);
                 } else {
-                    intensity.push(10);
+                    // intensity.push(0);
+                    intensity.push(Math.abs(int_limit) * ints/Math.abs(ints));
                 }
                 if (i_x < number_x && i_z < number_z) {
                     // First plate
@@ -137,7 +149,5 @@ function createPlatesInPlane(model) {
     console.log(data);
     return data;
 }
-
-
 
 module.exports = { updatePlot, createPlotData };
