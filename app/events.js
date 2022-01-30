@@ -58,7 +58,6 @@ function minValChanged(value){
     let model = getState();
     let problem = helpers.toTitleCase(model.problem);
     let result = model.result;
-    console.log("Min val:", value==="");
     model.problems[problem][result].min = value !== "" ? Number(value) : null;
     state.setState(model);
 }
@@ -112,12 +111,11 @@ function assignActions() {
     });
     $('#min_val').on('change', (e) => {
         minValChanged(e.target.value);
-        console.log('Changed min');
     });
     $('#max_val').on('change', (e) => {
         maxValChanged(e.target.value);
-        console.log('Changed max');
     });
+    
 }
 
 module.exports = {assignActions};

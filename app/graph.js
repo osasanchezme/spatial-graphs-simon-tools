@@ -13,17 +13,19 @@ function updatePlot() {
     // TODO - Add checkbox to keep x-corte and y-corte equal
     // TODO - Show intensity value on mesh hover - IMPORTANT!!!
     // TODO - (DONE) Adjust max stress ploted (manually or automatically) -- Set the min too to find location of a minimum stress (add inputs)
-    // TODO - Add inputs to adjust v and E
-    // TODO - ONLY MISSING ADDING THE CORERCT FORMULAS FOR EACH RESULT IN EACH PROBLEM
+    // TODO - Add inputs to adjust v and E - IMPORTANT
+    // TODO - (DONE) ONLY MISSING ADDING THE CORERCT FORMULAS FOR EACH RESULT IN EACH PROBLEM
     // TODO - Add units
     // TODO - Deformed shapes for deformation
     // TODO - Document all the functions to promote collaboration
     // TODO - Try to plot the same result with a different problem if does not exist go to the deafult one and notify
     // TODO - Add 3D scatter plot
-    // TODO - Add loader
+    // TODO - Add loader!!!!
     const model = getState();
-
     Plotly.newPlot(graph_cont, model.data, {});
+    graph_cont.on('plotly_afterplot', function(){
+        console.log('Done!');
+    });
 }
 
 function createPlotData(model) {
@@ -76,6 +78,8 @@ function createPlatesInPlane(model) {
     let k = [];
     // Intensity
     let intensity = [];
+    // Text on hover
+    let text_hover = [];
 
     let z_i = model.view.z.min;
     let z_f = model.view.z.max;
@@ -113,6 +117,7 @@ function createPlatesInPlane(model) {
                 let int_limit_max = prob[model.result].max;
                 let int_limit_min = prob[model.result].min;
                 let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
+                text_hover.push(`${prob[model.result].symbol} = ${String(ints.toPrecision(4))}`);
                 if (int_limit_max) {
                     if (ints > int_limit_max) {
                         ints = int_limit_max;
@@ -151,6 +156,7 @@ function createPlatesInPlane(model) {
         },
         opacity: 1,
         intensity: intensity,
+        text: text_hover,
         colorscale: 'Jet',
     };
     console.log(data);
