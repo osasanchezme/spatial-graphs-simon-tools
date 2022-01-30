@@ -39,7 +39,7 @@ function initializeApp() {
             },
             dz: {
                 formula: '((1+d.v) / (d.E * d.R)) * (2*(1-d.v) + d.z**2 / d.R**2)',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>z</sub>',
                 units: '[]',
                 max: 0.001,
@@ -47,7 +47,7 @@ function initializeApp() {
             },
             dr: {
                 formula: '((1+d.v) / (d.E * d.R)) * (d.r**2 / d.R**2 - (1-2*d.v)*d.r/(d.R+d.z))',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>r</sub>',
                 units: '[]',
                 max: 0.0004,
@@ -89,7 +89,7 @@ function initializeApp() {
             },
             dz: {
                 formula: '((1+d.v) / (d.E * d.R * 4 * (1-d.v))) * (3 - 4*d.v + d.z**2 / d.R**2)',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>z</sub>',
                 units: '[]',
                 max: 0.001,
@@ -97,7 +97,7 @@ function initializeApp() {
             },
             dr: {
                 formula: '((1+d.v) / (d.E * 4 * (1-d.v))) *(d.r*d.z/d.R**3)',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>r</sub>',
                 units: '[]',
                 max: 0.0004,
@@ -153,7 +153,7 @@ function initializeApp() {
             },
             dz: {
                 formula: '((1+d.v) / (d.E * d.R)) * (d.x*d.z/d.R**2 + (1-2*d.v)*d.x/(d.R+d.z))',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>z</sub>',
                 units: '[]',
                 max: 0.001,
@@ -161,7 +161,7 @@ function initializeApp() {
             },
             dx: {
                 formula: '((1+d.v) / (d.E * d.R)) * (1 + d.x**2/d.R**2 + (1-2*d.v)*(d.R/(d.R+d.z) - d.x**2/(d.R+d.z)**2))',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>x</sub>',
                 units: '[]',
                 max: 0.001,
@@ -169,7 +169,7 @@ function initializeApp() {
             },
             dy: {
                 formula: '((1+d.v) / (d.E * d.R)) * (d.x*d.y/d.R**2 - (1-2*d.v)*d.x*d.y/(d.R+d.z)**2)',
-                custom: 'd.v = 0.2; d.E = 20000',
+                custom: 'd.v = 0.2; d\.E = 20000000',
                 symbol: 'ε<sub>y</sub>',
                 units: '[]',
                 max: 0.001,
