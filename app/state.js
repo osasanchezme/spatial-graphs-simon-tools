@@ -247,6 +247,7 @@ function setState(model) {
     const curr_model = getState();
     if (curr_model !== model) {
         console.log('Started to plot!');
+        $('.loader').show();
         const data = graph.createPlotData(model);
         model.data = data;
         window[config.app_name].state = model;

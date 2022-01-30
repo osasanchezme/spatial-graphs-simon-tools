@@ -2,6 +2,7 @@ const Plotly = require('plotly.js-dist');
 const getState = require('./getState');
 const state = require('./state');
 const helpers = require('./helpers');
+const $ = require('jquery');
 
 function updatePlot() {
     let graph_cont = document.getElementById('graph_container');
@@ -15,17 +16,18 @@ function updatePlot() {
     // TODO - (DONE) Adjust max stress ploted (manually or automatically) -- Set the min too to find location of a minimum stress (add inputs)
     // TODO - Add inputs to adjust v and E - IMPORTANT
     // TODO - (DONE) ONLY MISSING ADDING THE CORERCT FORMULAS FOR EACH RESULT IN EACH PROBLEM
-    // TODO - Add units
+    // TODO - (DONE) Add units
     // TODO - Deformed shapes for deformation
     // TODO - Document all the functions to promote collaboration
     // TODO - Try to plot the same result with a different problem if does not exist go to the deafult one and notify
     // TODO - Add 3D scatter plot
     // TODO - Add loader!!!!
     // TODO - Support multiple unit systems
-    // TODO - Change trace name
+    // TODO - (DONE) Change trace name
     const model = getState();
     Plotly.newPlot(graph_cont, model.data, {});
     graph_cont.on('plotly_afterplot', function(){
+        $('.loader').hide();
         console.log('Done!');
     });
 }
