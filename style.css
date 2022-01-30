@@ -129,6 +129,7 @@ select {
 
 .input-row {
     margin-bottom: 10px;
+    position: relative;
 }
 
 /* Toggle */
@@ -190,4 +191,14 @@ input:checked + .slider:before {
 
 .slider.round:before {
     border-radius: 50%;
+}
+
+/* Units */
+
+.units-placeholder{
+    position: absolute;
+    right: 7px;
+    bottom: 7px;
+    font-size: 13px;
+    color: rgb(104, 104, 104);
 }

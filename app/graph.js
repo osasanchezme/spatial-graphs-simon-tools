@@ -21,6 +21,8 @@ function updatePlot() {
     // TODO - Try to plot the same result with a different problem if does not exist go to the deafult one and notify
     // TODO - Add 3D scatter plot
     // TODO - Add loader!!!!
+    // TODO - Support multiple unit systems
+    // TODO - Change trace name
     const model = getState();
     Plotly.newPlot(graph_cont, model.data, {});
     graph_cont.on('plotly_afterplot', function(){
@@ -40,6 +42,7 @@ function createPlotData(model) {
     const data = [
         {
             type: 'mesh3d',
+            name: 'Terreno',
             x: [dx, dx, -d, -d, d, d, dx, dx, -d, -d, d, d],
             y: [dy, d, d, -d, -d, dy, dy, d, d, -d, -d, dy],
             z: [0, 0, 0, 0, 0, 0, dz, dz, dz, dz, dz, dz],
@@ -54,6 +57,7 @@ function createPlotData(model) {
             lighting: {
                 ambient: 1,
             },
+            text: ['', '', '', '', '', '', '', '', '', '', '', ''],
             opacity: 1,
             // intensity: intensity,
             // colorscale: [
@@ -117,7 +121,7 @@ function createPlatesInPlane(model) {
                 let int_limit_max = prob[model.result].max;
                 let int_limit_min = prob[model.result].min;
                 let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
-                text_hover.push(`${prob[model.result].symbol} = ${String(ints.toPrecision(4))}`);
+                text_hover.push(`${prob[model.result].symbol} = ${String(ints.toPrecision(4))} ${prob[model.result].units}`);
                 if (int_limit_max) {
                     if (ints > int_limit_max) {
                         ints = int_limit_max;
@@ -144,6 +148,7 @@ function createPlatesInPlane(model) {
     });
     const data = {
         type: 'mesh3d',
+        name: '',
         x: x,
         y: y,
         z: z,
