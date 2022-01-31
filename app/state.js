@@ -275,6 +275,8 @@ function updateUI() {
     let result_data = available_problems[helpers.toTitleCase(problem_name)][String(model.result)];
     $('#min_val').val((result_data.min === null) ? "" : result_data.min);
     $('#max_val').val((result_data.max === null) ? "" : result_data.max);
+    $('#units_minval').html(result_data.units);
+    $('#units_maxval').html(result_data.units);
     graph.updatePlot();
 }
 

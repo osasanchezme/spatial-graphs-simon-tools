@@ -24,6 +24,7 @@ function updatePlot() {
     // TODO - Add loader!!!!
     // TODO - Support multiple unit systems
     // TODO - (DONE) Change trace name
+    // TODO - Change the limits to show the plot in the report
     const model = getState();
     Plotly.newPlot(graph_cont, model.data, {});
     graph_cont.on('plotly_afterplot', function(){
@@ -86,6 +87,8 @@ function createPlatesInPlane(model) {
     let intensity = [];
     // Text on hover
     let text_hover = [];
+    // Units
+    let result_units;
 
     let z_i = model.view.z.min;
     let z_f = model.view.z.max;
@@ -123,6 +126,7 @@ function createPlatesInPlane(model) {
                 let int_limit_max = prob[model.result].max;
                 let int_limit_min = prob[model.result].min;
                 let ints = (load_val / (2 * Math.PI)) * eval(prob[model.result].formula);
+                result_units = JSON.parse(JSON.stringify(prob[model.result].units));
                 text_hover.push(`${prob[model.result].symbol} = ${String(ints.toPrecision(4))} ${prob[model.result].units}`);
                 if (int_limit_max) {
                     if (ints > int_limit_max) {
@@ -148,6 +152,7 @@ function createPlatesInPlane(model) {
             }
         }
     });
+
     const data = {
         type: 'mesh3d',
         name: '',
@@ -157,6 +162,9 @@ function createPlatesInPlane(model) {
         i: i,
         j: j,
         k: k,
+        colorbar: {
+            ticksuffix: ` ${result_units}`,
+        },
         // facecolor: facecolor,
         lighting: {
             ambient: 1,
