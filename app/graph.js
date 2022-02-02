@@ -25,6 +25,7 @@ function updatePlot() {
     // TODO - Support multiple unit systems
     // TODO - (DONE) Change trace name
     // TODO - Change the limits to show the plot in the report
+    // TODO - For a given value, plot the scatter points in actual 3D
     const model = getState();
     Plotly.newPlot(graph_cont, model.data, {});
     graph_cont.on('plotly_afterplot', function(){
